@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :require_user_logged_in, only: [:index, :show,:followings,:followers]
+  before_action :require_user_logged_in, only: [:index, :show,:followings,:followers, :favorites]
+  
   def index
     @users = User.order(id: :desc).page(params[:page]).per(10)
     @microposts = @user.microposts.order(id: :desc).page(params[:page])
@@ -40,7 +41,19 @@ class UsersController < ApplicationController
     counts(@user)
   end
 
+  def favorites
+    @user = User.find(params[:id])
+    @microposts = @user.favorites.page(params[:page])
+    counts(@micropost)
+  end
 
+  def unfavorite
+    @user = User.find(params[:id])
+    @microposts = @user.favorites.page(params[:page])
+    counts(@micropost)
+  end
+
+  
 private
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
