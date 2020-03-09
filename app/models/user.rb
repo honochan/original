@@ -37,13 +37,22 @@ class User < ApplicationRecord
     Micropost.where(user_id: self.following_ids + [self.id])
   end
   
-  
+    
   def favorite(other_user)
     unless self == other_user
       self.favorites.find_or_create_by(micropost_id: other_user.id)
     end
   end
   
+  
+  def self.search(search)   
+        if search  
+          where(['name LIKE ?', "%#{search}%"])   
+        else  
+          all  
+        end  
+    end 
+    
   def unfavorite(other_user)
     favorite = self.favorites.find_by(micropost_id: other_user.id)
     favorite.destroy if favorite

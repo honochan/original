@@ -18,12 +18,14 @@
         <div>
           <% if current_user == micropost.user %>
           <%= link_to "Delete", micropost, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-sm' %>
-          <%= link_to "Favorite", micropost, method: :favorite, class: 'btn btn-light btn-sm' %>
-          <%= link_to "Unfavorite", micropost, method: :unfavorite, class: 'btn btn-light btn-sm' %>
+          <!--<%= link_to "Favorite", micropost, method: :favorite, class: 'btn btn-light btn-sm' %>-->
+          <!--<%= link_to "Unfavorite", micropost, method: :unfavorite, class: 'btn btn-light btn-sm' %>-->
   
-          <% end %></div>
+          <% end %>
+          </div>
       </div>
     </li>
   <% end %>
   <%= paginate microposts %>
 </ul>
+
